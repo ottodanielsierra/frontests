@@ -5,8 +5,35 @@ let listItems = [
 ];
 let currentEditingItem = 0;
 
+//HTML Elements
+let list;
+let form;
+let input;
+let editForm;
+let editInput;
+
+document.addEventListener("DOMContentLoaded", () => {
+    list = document.getElementById('list');
+    form = document.getElementById('form');
+    input = document.getElementById('input');
+    editForm = document.getElementById('edit-form');
+    editInput = document.getElementById('edit-input');
+
+    loadItems();
+
+    form.addEventListener("submit", function(event){
+        event.preventDefault();
+        addItem();
+    });
+
+    editForm.addEventListener("submit", function(event){
+        event.preventDefault();
+    });
+});
+
 function loadItems() {
-    let list = document.getElementById('list');
+    list.replaceChildren('');
+
     listItems.forEach((item, i) => {
         list.appendChild(createLiElement(item, i));
     });
@@ -19,7 +46,7 @@ function createLiElement(text, index) {
     let editButton = document.createElement('button');
     editButton.textContent = 'Edit';
     editButton.setAttribute('class', 'button-clear button-small button-green');
-    editButton.addEventListener('click', (event) => editItem(event, index));
+    editButton.setAttribute('onclick', 'editItem('+index+')');
 
     let deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
@@ -34,41 +61,33 @@ function createLiElement(text, index) {
 }
 
 function addItem() {
-    let text = document.getElementById('input').value;
-    if (text == '') return;
+    if (input.value == '') return;
 
-    document.getElementById('input').value = '';
-    listItems.push(text);
+    listItems.push(input.value);
+    input.value = '';
 
-    list.replaceChildren('');
     loadItems();
 }
 
 function deleteItem(index) {
     listItems.splice(index, 1);
 
-    let list = document.getElementById('list');
-    list.replaceChildren('');
     loadItems();
 }
 
-function editItem(event, index) {
-    //console.log(event, index);
-    let form = document.getElementById('edit-form');
+function editItem(index) {
     requestAnimationFrame(() => {
-        form.style.display = "flex";
+        editForm.style.display = "flex";
         requestAnimationFrame(() => {
-            form.style.opacity = "1";
+            editForm.style.opacity = "1";
         });
     });    
 
-    let editInput = document.getElementById('edit-input');
     editInput.value = listItems[index];
     currentEditingItem = index;
 }
 
 function updateItem() {
-    let editInput = document.getElementById('edit-input');
     listItems[currentEditingItem] = editInput.value;
     list.replaceChildren('');
     loadItems();
@@ -76,25 +95,9 @@ function updateItem() {
 }
 
 function closeEdit() {
-    let form = document.getElementById('edit-form');
-
-    form.style.opacity = "0";
+    editForm.style.opacity = "0";
     setTimeout(() => {
-        form.style.display = "none";
-        let editInput = document.getElementById('edit-input');
+        editForm.style.display = "none";
         editInput.value = '';
     }, 200);    
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    loadItems();
-
-    document.getElementById("form").addEventListener("submit", function(event){
-        event.preventDefault();
-        addItem();
-    });
-
-    document.getElementById("edit-form").addEventListener("submit", function(event){
-        event.preventDefault();
-    });
-});
