@@ -16,7 +16,7 @@
         <p>Add new items to the list.</p>
         <form id="form">
             <label for="input">New Item</label>
-            <input type="text" id="input"><button onclick="addItem()" type="submit">Submit</button>
+            <input type="text" id="input" autocomplete="off"><button onclick="addItem()" type="submit">Submit</button>
         </form>
         
         <ul id="list">
@@ -26,7 +26,7 @@
     <form id="edit-form">
         <div id="edit-form-content">
             <label for="edit-input">Edit Item</label>
-            <input type="text" id="edit-input">
+            <input type="text" id="edit-input" autocomplete="off">
             <button onclick="closeEdit()" type="button">Cancel</button>
             <button onclick="updateItem()" type="submit">Save</button>
         </div>

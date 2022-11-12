@@ -55,7 +55,12 @@ function deleteItem(index) {
 function editItem(event, index) {
     //console.log(event, index);
     let form = document.getElementById('edit-form');
-    form.style.display = "flex";
+    requestAnimationFrame(() => {
+        form.style.display = "flex";
+        requestAnimationFrame(() => {
+            form.style.opacity = "1";
+        });
+    });    
 
     let editInput = document.getElementById('edit-input');
     editInput.value = listItems[index];
@@ -72,9 +77,13 @@ function updateItem() {
 
 function closeEdit() {
     let form = document.getElementById('edit-form');
-    form.style.display = "none";
-    let editInput = document.getElementById('edit-input');
-    editInput.value = '';
+
+    form.style.opacity = "0";
+    setTimeout(() => {
+        form.style.display = "none";
+        let editInput = document.getElementById('edit-input');
+        editInput.value = '';
+    }, 200);    
 }
 
 document.addEventListener("DOMContentLoaded", () => {
