@@ -1,3 +1,12 @@
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
 .button-small {
     font-size: .8rem;
     height: 2.8rem;
@@ -12,4 +21,19 @@
 
 .button-green {
     color: green !important;
+}
+
+#edit-form {
+    display: none;
+    position: absolute;
+    background: #ffffffd1;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+#edit-form-content {
+    max-width: 400px;
 }

@@ -3,6 +3,7 @@ let listItems = [
     'Google',
     'Microsoft'
 ];
+let currentEditingItem = 0;
 
 function loadItems() {
     let list = document.getElementById('list');
@@ -39,8 +40,8 @@ function addItem() {
     document.getElementById('input').value = '';
     listItems.push(text);
 
-    let list = document.getElementById('list');
-    list.appendChild(createLiElement(text));
+    list.replaceChildren('');
+    loadItems();
 }
 
 function deleteItem(index) {
@@ -51,14 +52,29 @@ function deleteItem(index) {
     loadItems();
 }
 
-function editItem(event, test) {
-    console.log(event, test);
+function editItem(event, index) {
+    //console.log(event, index);
+    let form = document.getElementById('edit-form');
+    form.style.display = "flex";
+
     let editInput = document.getElementById('edit-input');
-    editInput.value = 'perri';
+    editInput.value = listItems[index];
+    currentEditingItem = index;
 }
 
 function updateItem() {
-    
+    let editInput = document.getElementById('edit-input');
+    listItems[currentEditingItem] = editInput.value;
+    list.replaceChildren('');
+    loadItems();
+    closeEdit();
+}
+
+function closeEdit() {
+    let form = document.getElementById('edit-form');
+    form.style.display = "none";
+    let editInput = document.getElementById('edit-input');
+    editInput.value = '';
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -67,5 +83,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("form").addEventListener("submit", function(event){
         event.preventDefault();
         addItem();
+    });
+
+    document.getElementById("edit-form").addEventListener("submit", function(event){
+        event.preventDefault();
     });
 });

@@ -18,13 +18,18 @@
             <label for="input">New Item</label>
             <input type="text" id="input"><button onclick="addItem()" type="submit">Submit</button>
         </form>
-        <form id="editform">
-            <label for="edit-input">Item</label>
-            <input type="text" id="edit-input"><button onclick="updateItem()" type="submit">Save</button>
-        </form>
+        
         <ul id="list">
             <!-- ITEMS -->
         </ul>
-    </main>    
+    </main>
+    <form id="edit-form">
+        <div id="edit-form-content">
+            <label for="edit-input">Edit Item</label>
+            <input type="text" id="edit-input">
+            <button onclick="closeEdit()" type="button">Cancel</button>
+            <button onclick="updateItem()" type="submit">Save</button>
+        </div>
+    </form>
 </body>
 </html>
