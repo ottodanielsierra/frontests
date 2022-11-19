@@ -1,0 +1,48 @@
+@import '../../node_modules/milligram/dist/milligram.min.css';
+
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+.button-small {
+  font-size: .8rem;
+  height: 2.8rem;
+  line-height: 2.8rem;
+  padding: 0 1.5rem;
+}
+
+.button-red {
+  color: red !important;
+}
+
+
+.button-green {
+  color: green !important;
+}
+
+#edit-form {
+  display: none;
+  position: absolute;
+  background: #ffffffd1;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+#edit-form-content {
+  max-width: 400px;
+}
+
+@keyframes fade-in {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
