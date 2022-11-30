@@ -1,14 +1,11 @@
 <script>
-export default {
+export default{
   data() {
     return {
       itemInput: '',
       editInput: '',
       currentEditingItem: 0,
-      editFormStyles: {
-        display: 'none',
-        opacity: "0"
-      },
+      showEditForm: false,
       listItems: [
         'Apple',
         'Google',
@@ -27,14 +24,8 @@ export default {
       this.listItems.splice(index, 1);
     },
     editItem(index) {
-      requestAnimationFrame(() => {
-        this.editFormStyles.display = "flex";
-        requestAnimationFrame(() => {
-          this.editFormStyles.opacity = "1";
-        });
-      });
+      this.showEditForm = true;
       
-
       this.editInput = this.listItems[index];
       this.currentEditingItem = index;
     },
@@ -43,11 +34,7 @@ export default {
       this.closeEdit();
     },
     closeEdit() {
-      this.editFormStyles.opacity = "0";
-      setTimeout(() => {
-          this.editFormStyles.display = "none";
-          this.editInput = '';
-      }, 200);
+      this.showEditForm = false;
     }
   }
 }
@@ -72,16 +59,24 @@ export default {
         </li>
       </ul>
   </main>
-  <form id="edit-form" v-bind:style="{ display: editFormStyles.display, opacity: editFormStyles.opacity }">
+  <Transition name="fade">
+    <form id="edit-form" v-if="showEditForm">
       <div id="edit-form-content">
-          <label for="edit-input">Edit Item</label>
-          <input type="text" id="edit-input" autocomplete="off"  v-model="editInput">
-          <button @click="closeEdit()" type="button">Cancel</button>
-          <button @click.prevent="updateItem()" type="submit">Save</button>
+        <label for="edit-input">Edit Item</label>
+        <input type="text" id="edit-input" autocomplete="off" v-model="editInput">
+        <button @click="closeEdit()" type="button">Cancel</button>
+        <button @click.prevent="updateItem()" type="submit">Save</button>
       </div>
-  </form>
+    </form>
+  </Transition>  
 </template>
 
 <style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.2s ease;
+}
 
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
 </style>

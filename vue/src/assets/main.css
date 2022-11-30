@@ -26,7 +26,7 @@ html {
 }
 
 #edit-form {
-  display: none;
+  display: flex;
   position: absolute;
   background: #ffffffd1;
   height: 100%;
@@ -34,15 +34,9 @@ html {
   top: 0;
   justify-content: center;
   align-items: center;
-  opacity: 0;
   transition: opacity 0.2s ease-in-out;
 }
 
 #edit-form-content {
   max-width: 400px;
-}
-
-@keyframes fade-in {
-  from {opacity: 0;}
-  to {opacity: 1;}
 }
